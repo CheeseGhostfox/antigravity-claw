@@ -61,7 +61,7 @@ See `DESIGN.md` for the full design rationale.
 Requires OpenClaw `>= 2026.8.1` (currently on the OpenClaw beta channel on npm: `2026.8.1-beta.x`).
 
 ```bash
-openclaw plugins install https://github.com/CheeseGhostfox/antigravity-claw
+openclaw plugins install git:https://github.com/CheeseGhostfox/antigravity-claw
 ```
 
 The plugin registers two providers:
@@ -210,6 +210,7 @@ paths). This repo therefore commits `dist/` and declares it explicitly:
 
 MIT — derivative work of [OpenClaw](https://github.com/openclaw/openclaw)
 (MIT, Copyright (c) 2026 OpenClaw Foundation). See `LICENSE`.
+
 
 
 
