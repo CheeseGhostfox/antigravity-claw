@@ -1,5 +1,10 @@
 # Antigravity Claw
 
+> **不要让您Gemini Pro订阅包含的额外token付诸东流!**
+> **Stop wasting your EXTRA TOKEN from a Gemini Pro subscription you already paid!**
+
+**English** | [**简体中文**](README.zh-CN.md)
+
 Dual-provider [Antigravity](https://antigravity.ai) integration for
 [OpenClaw](https://github.com/openclaw/openclaw): a first-class `agy` CLI agent
 harness **and** a native OpenAI-compatible API-key route, hot-switchable with
@@ -336,5 +341,6 @@ paths). This repo therefore commits `dist/` and declares it explicitly:
 
 MIT — derivative work of [OpenClaw](https://github.com/openclaw/openclaw)
 (MIT, Copyright (c) 2026 OpenClaw Foundation). See `LICENSE`.
+
 
 
