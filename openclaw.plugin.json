@@ -1,0 +1,327 @@
+{
+  "id": "antigravity",
+  "icon": "https://cdn.simpleicons.org/googlegemini",
+  "activation": {
+    "onStartup": false,
+    "onAgentHarnesses": [
+      "antigravity"
+    ]
+  },
+  "enabledByDefault": true,
+  "providers": [
+    "antigravity",
+    "antigravity-openai"
+  ],
+  "name": "Antigravity CLI + API",
+  "description": "Dual-provider Antigravity integration: agy CLI agent harness and OpenAI-compatible API-key model dispatch with hot-switchable backup takeover.",
+  "skills": [
+    "./skills"
+  ],
+  "providerCatalogEntry": "./provider-discovery.ts",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "binaryPath": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Explicit path to the agy (Antigravity CLI) executable. Defaults to agy on PATH, then the Windows AppData install location."
+      },
+      "sandbox": {
+        "type": "boolean",
+        "default": true,
+        "description": "Pass --sandbox to agy so its terminal execution runs with sandbox restrictions enabled."
+      },
+      "projectPrefix": {
+        "type": "string",
+        "minLength": 1,
+        "default": "openclaw",
+        "description": "Stable project-name prefix for agy --project. Session identity is appended."
+      }
+    }
+  },
+  "modelCatalog": {
+    "providers": {
+      "antigravity": {
+        "baseUrl": "https://antigravity.local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "Gemini 3.7 Flash (High)",
+            "name": "Gemini 3.7 Flash (High)",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 1000000,
+            "maxTokens": 65536,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "codeMode": "capable"
+            }
+          },
+          {
+            "id": "Gemini 3.7 Flash (Medium)",
+            "name": "Gemini 3.7 Flash (Medium)",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 1000000,
+            "maxTokens": 65536,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "codeMode": "capable"
+            }
+          },
+          {
+            "id": "Gemini 3.7 Flash (Low)",
+            "name": "Gemini 3.7 Flash (Low)",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 1000000,
+            "maxTokens": 65536,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "codeMode": "capable"
+            }
+          },
+          {
+            "id": "Gemini 3.1 Pro (High)",
+            "name": "Gemini 3.1 Pro (High)",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 1000000,
+            "maxTokens": 65536,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "codeMode": "preferred"
+            }
+          },
+          {
+            "id": "Gemini 3.1 Pro (Low)",
+            "name": "Gemini 3.1 Pro (Low)",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 1000000,
+            "maxTokens": 65536,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "codeMode": "preferred"
+            }
+          },
+          {
+            "id": "Gemini 3.6 Flash (High)",
+            "name": "Gemini 3.6 Flash (High)",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 1000000,
+            "maxTokens": 65536,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "compat": {
+              "codeMode": "capable"
+            }
+          }
+        ]
+      },
+      "antigravity-openai": {
+        "baseUrl": "https://api.openai.com/v1",
+        "api": "openai-responses",
+        "defaultModel": "gpt-5.6-sol",
+        "models": [
+          {
+            "id": "gpt-5.6-sol",
+            "name": "GPT-5.6 Sol",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 1050000,
+            "contextTokens": 272000,
+            "maxTokens": 128000,
+            "cost": {
+              "input": 5,
+              "output": 30,
+              "cacheRead": 0.5,
+              "cacheWrite": 6.25
+            },
+            "thinkingLevelMap": {
+              "off": "none",
+              "xhigh": "xhigh",
+              "max": "max"
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "none",
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ],
+              "supportsTemperature": false,
+              "codeMode": "preferred"
+            }
+          },
+          {
+            "id": "gpt-5.6",
+            "name": "GPT-5.6",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 1050000,
+            "contextTokens": 272000,
+            "maxTokens": 128000,
+            "cost": {
+              "input": 1.25,
+              "output": 10,
+              "cacheRead": 0.125,
+              "cacheWrite": 2.5
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "none",
+                "low",
+                "medium",
+                "high"
+              ],
+              "supportsTemperature": false,
+              "codeMode": "preferred"
+            }
+          },
+          {
+            "id": "gpt-5.2",
+            "name": "GPT-5.2",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 400000,
+            "contextTokens": 160000,
+            "maxTokens": 128000,
+            "cost": {
+              "input": 1.25,
+              "output": 10,
+              "cacheRead": 0.125,
+              "cacheWrite": 2.5
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "none",
+                "low",
+                "medium",
+                "high"
+              ],
+              "supportsTemperature": false,
+              "codeMode": "preferred"
+            }
+          },
+          {
+            "id": "o3",
+            "name": "o3",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 200000,
+            "contextTokens": 200000,
+            "maxTokens": 100000,
+            "cost": {
+              "input": 2,
+              "output": 8,
+              "cacheRead": 0.5,
+              "cacheWrite": 2
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "none",
+                "low",
+                "medium",
+                "high"
+              ],
+              "supportsTemperature": false,
+              "codeMode": "preferred"
+            }
+          },
+          {
+            "id": "gpt-5-mini",
+            "name": "GPT-5 Mini",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 400000,
+            "contextTokens": 160000,
+            "maxTokens": 128000,
+            "cost": {
+              "input": 0.25,
+              "output": 2,
+              "cacheRead": 0.025,
+              "cacheWrite": 0.5
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": [
+                "none",
+                "low",
+                "medium"
+              ],
+              "supportsTemperature": false,
+              "codeMode": "capable"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

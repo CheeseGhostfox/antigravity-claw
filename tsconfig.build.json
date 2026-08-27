@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "rewriteRelativeImportExtensions": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "declaration": false,
+    "sourceMap": false
+  },
+  "include": [
+    "index.ts",
+    "harness.ts",
+    "models.ts",
+    "provider-catalog.ts",
+    "provider-discovery.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": ["**/*.test.ts", "dist", "node_modules"]
+}

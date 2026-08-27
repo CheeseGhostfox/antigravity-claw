@@ -1,0 +1,47 @@
+{
+  "name": "@cheeseghostfox/antigravity-claw",
+  "version": "0.1.0",
+  "description": "Dual-provider Antigravity integration for OpenClaw: agy CLI agent harness and OpenAI-compatible API-key dispatch, hot-switchable with automatic backup takeover.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CheeseGhostfox/antigravity-claw.git"
+  },
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "antigravity",
+    "agy",
+    "agent-harness"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run src/agy-client.test.ts"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "openclaw": ">=2026.8.1",
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.0"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "runtimeExtensions": [
+      "./dist/index.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.8.1"
+    },
+    "build": {
+      "openclawVersion": "2026.8.1",
+      "bundledDist": false
+    }
+  }
+}

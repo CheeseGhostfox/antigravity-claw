@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": [
+    "index.ts",
+    "harness.ts",
+    "models.ts",
+    "provider-catalog.ts",
+    "provider-discovery.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": ["dist", "node_modules"]
+}

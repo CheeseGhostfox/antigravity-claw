@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build artifacts (dist/ is committed on purpose — see README "How packaging works")
+*.tsbuildinfo
+.artifacts/
+
+# Local release staging / scratch
+.release/
+.build-test/
+
+# Test output
+coverage/
