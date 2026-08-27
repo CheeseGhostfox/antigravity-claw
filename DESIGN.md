@@ -83,6 +83,22 @@ Switching providers is just changing the model selection; the skills
 (`antigravity-cli`, `antigravity-api`) document both directions plus cancel and
 migration from the old Telegram adapter hack.
 
+### 4. Chat commands
+
+`index.ts` registers two chat commands on top of the switching machinery:
+
+- `/quota` — `src/agy-quota.ts` reads the agy OAuth token (OS keyring or token
+  file, read-only, with in-memory refresh only), calls the private Cloud Code
+  RPC (`loadCodeAssist` → `retrieveUserQuotaSummary`) that powers agy's
+  `/usage` panel, and renders progress bars per model group
+  (`src/agy-quota.render.ts`). No credential is ever persisted or logged.
+- `/keys` — lists auth profiles for the `antigravity-openai` provider and
+  returns one-tap buttons that re-dispatch `/model <provider>/<model>@<profile>`
+  (and CLI quick-switch buttons). Switching provider/model/thinking-depth/API
+  key stays core model selection; the buttons are just a friendlier surface.
+
+The CLI catalog declares `compat.supportedReasoningEfforts: ["low","medium","high"]`
+so `/think` matches what agy `--effort` actually accepts.
 ## Files
 
 - `index.ts` — plugin entry: harness + both provider registrations.
@@ -90,5 +106,7 @@ migration from the old Telegram adapter hack.
 - `models.ts` — static catalogs; CLI rows carry `agentRuntime.id`.
 - `provider-catalog.ts` / `provider-discovery.ts` — offline catalog facade.
 - `src/agy-client.ts` — binary resolution, availability probe, spawn, NDJSON parser, error classifier.
+- `src/agy-quota.ts` / `src/agy-quota.render.ts` — quota RPC client (credential read, refresh, fetch) and Telegram progress-bar renderer.
+- `src/commands.ts` — `/quota` and `/keys` plugin chat commands.
 - `openclaw.plugin.json` — manifest: activation, providers, config schema, model catalogs, skills.
 - `skills/` — hot-switch playbooks.

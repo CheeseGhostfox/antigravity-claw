@@ -29,6 +29,11 @@ routes back each other up without any channel-specific code.
   fallback chain cover missing binaries, missing keys, quota, and rate limits.
 - **Skills** — `antigravity-cli` and `antigravity-api` playbooks for routing,
   preflight, cancel, and migration.
+- **Quota progress bars** — `/quota` in chat shows the agy CLI quota pool
+  (weekly + 5-hour limits) with progress bars, remaining percent, and reset
+  countdowns, straight from the same Cloud Code RPC agy's `/usage` panel uses.
+- **One-tap switching** — `/keys` lists API keys and provider/model switches as
+  buttons; `/keys use <profile>` swaps to another key and picks a model.
 - **No channel hacks** — replies and transcripts flow through the standard
   OpenClaw pipeline, so every channel works uniformly.
 
@@ -208,6 +213,67 @@ Keep one route as primary and the other as automatic fallback:
   re-runs the attempt on the built-in OpenClaw runtime for the same route).
 - API key missing / quota hit → core advances to the CLI fallback.
 
+## Chat commands
+
+All switching is core model selection — these commands are the friendly chat
+surface over `/model` and `/think`.
+
+### `/quota` — Antigravity CLI quota
+
+Shows the remaining quota pool for the account behind the `antigravity` (CLI)
+provider, grouped by model, with progress bars:
+
+```text
+📊 Antigravity CLI quota
+   · account u***@example.com
+
+📊 Gemini 3.7 Flash (High)
+   · Gemini 3.7 Flash (High)
+▸ Weekly Limit  [█████████████░░░] 83% remaining · resets in 73h 53m
+▸ 5-hour Limit  [██░░░░░░░░░░░░░░] 12% remaining · resets in 2h 7m
+```
+
+Data comes from the same private Cloud Code RPC agy's `/usage` panel uses
+(`loadCodeAssist` → `retrieveUserQuotaSummary`). The agy OAuth token is read
+from the OS keyring (`gemini`/`antigravity`) or, on headless Linux, the token
+file; `AGY_OAUTH_TOKEN_FILE` overrides the path. Tokens are read-only — never
+written back or logged. Account login and token refresh stay with agy itself
+(running `agy` refreshes the stored token); if agy is not signed in or its
+token expired, the command tells you exactly that.
+
+### `/keys` — switch provider, model, and API key
+
+```text
+/keys                list providers + API keys with one-tap switch buttons
+/keys use <profile>  pick a key, then tap the model you want
+/keys help           usage
+```
+
+- Provider switch: buttons dispatch `/model antigravity/Gemini 3.7 Flash (High)`
+  (CLI) or `/model antigravity-openai/<model>` (API).
+- Thinking depth on either route: `/think low|medium|high`.
+- API-key switch: the model ref suffix `@<profile>` picks the auth profile, e.g.
+  `/model antigravity-openai/gpt-5.6-sol@work`.
+
+### Multiple API keys
+
+Each API key is an OpenClaw auth profile for the `antigravity-openai` provider.
+Add keys on the gateway host:
+
+```bash
+openclaw models auth login --provider antigravity-openai --profile-id work --method api-key
+openclaw models auth login --provider antigravity-openai --profile-id personal --method api-key
+```
+
+Switch between them per session (`-s`), agent (`-a`), or globally (`-g`):
+
+```bash
+openclaw models --agent -s "antigravity-openai/gpt-5.6-sol@work"
+openclaw models --agent -s "antigravity-openai/gpt-5.2@personal"
+```
+
+In chat, `/keys use work` and the model buttons do the same thing. A copyable
+template lives in `examples/multi-key-profiles.jsonc`.
 ## Skills
 
 - `antigravity-cli` — route to the CLI harness; availability checks; cancel; migration notes.
@@ -223,7 +289,7 @@ build step. To rebuild locally:
 ```bash
 npm install        # installs the openclaw peer (dev dependency) + toolchain
 npm run build      # tsc -p tsconfig.build.json -> dist/
-npm test           # vitest run src/agy-client.test.ts
+npm test           # vitest run (all src suites)
 npm run typecheck  # tsc -p tsconfig.json
 ```
 
@@ -270,9 +336,5 @@ paths). This repo therefore commits `dist/` and declares it explicitly:
 
 MIT — derivative work of [OpenClaw](https://github.com/openclaw/openclaw)
 (MIT, Copyright (c) 2026 OpenClaw Foundation). See `LICENSE`.
-
-
-
-
 
 

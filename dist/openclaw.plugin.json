@@ -62,7 +62,7 @@
                             "cacheWrite": 0
                         },
                         "compat": {
-                            "codeMode": "capable"
+                            "codeMode": "capable", "supportsReasoningEffort": true, "supportedReasoningEfforts": ["low", "medium", "high"]
                         }
                     },
                     {
@@ -81,7 +81,7 @@
                             "cacheWrite": 0
                         },
                         "compat": {
-                            "codeMode": "capable"
+                            "codeMode": "capable", "supportsReasoningEffort": true, "supportedReasoningEfforts": ["low", "medium", "high"]
                         }
                     },
                     {
@@ -100,7 +100,7 @@
                             "cacheWrite": 0
                         },
                         "compat": {
-                            "codeMode": "capable"
+                            "codeMode": "capable", "supportsReasoningEffort": true, "supportedReasoningEfforts": ["low", "medium", "high"]
                         }
                     },
                     {
@@ -120,7 +120,7 @@
                             "cacheWrite": 0
                         },
                         "compat": {
-                            "codeMode": "preferred"
+                            "codeMode": "preferred", "supportsReasoningEffort": true, "supportedReasoningEfforts": ["low", "medium", "high"]
                         }
                     },
                     {
@@ -140,7 +140,7 @@
                             "cacheWrite": 0
                         },
                         "compat": {
-                            "codeMode": "preferred"
+                            "codeMode": "preferred", "supportsReasoningEffort": true, "supportedReasoningEfforts": ["low", "medium", "high"]
                         }
                     },
                     {
@@ -159,7 +159,7 @@
                             "cacheWrite": 0
                         },
                         "compat": {
-                            "codeMode": "capable"
+                            "codeMode": "capable", "supportsReasoningEffort": true, "supportedReasoningEfforts": ["low", "medium", "high"]
                         }
                     }
                 ]

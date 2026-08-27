@@ -1,11 +1,13 @@
 /**
- * Antigravity plugin entry: registers the agy CLI agent harness and two
- * hot-switchable providers.
+ * Antigravity plugin entry: registers the agy CLI agent harness, two
+ * hot-switchable providers, and the chat commands that operate them.
  *
  * - `antigravity` (CLI): routes to this plugin's harness, which spawns
  *   `agy --print` and streams deltas through the OpenClaw agent pipeline.
  * - `antigravity-openai` (API key): delegates to the built-in OpenClaw
  *   runtime using the native OpenAI-compatible transport with API-key auth.
+ * - `/quota`: live Antigravity CLI quota progress bars.
+ * - `/keys`: list/switch API-key auth profiles and provider/model with one tap.
  *
  * The manifest ships OpenAI as the example catalog for the API-key route;
  * the endpoint, protocol, models, and thinking-depth mapping are all
@@ -22,6 +24,7 @@ import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
 import type { ProviderPlugin } from "openclaw/plugin-sdk/plugin-entry";
 import { createAntigravityAgentHarness } from "./harness.js";
+import { buildPluginCommands } from "./src/commands.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import {
   ANTIGRAVITY_API_PROVIDER_ID,
@@ -111,5 +114,9 @@ export default definePluginEntry({
 
     api.registerProvider(buildAntigravityCliProviderPlugin());
     api.registerProvider(buildAntigravityApiProviderPlugin());
+
+    for (const command of buildPluginCommands()) {
+      api.registerCommand(command);
+    }
   },
 });

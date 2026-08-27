@@ -2,6 +2,7 @@ import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
 import { createAntigravityAgentHarness } from "./harness.js";
+import { buildPluginCommands } from "./src/commands.js";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { ANTIGRAVITY_API_PROVIDER_ID, ANTIGRAVITY_CLI_PROVIDER_ID, ANTIGRAVITY_HARNESS_RUNTIME_ID, buildAntigravityApiProvider, buildAntigravityCliProvider, } from "./models.js";
 // Single source of truth for the onboarding-wizard default model: the
@@ -69,5 +70,8 @@ export default definePluginEntry({
         }));
         api.registerProvider(buildAntigravityCliProviderPlugin());
         api.registerProvider(buildAntigravityApiProviderPlugin());
+        for (const command of buildPluginCommands()) {
+            api.registerCommand(command);
+        }
     },
 });

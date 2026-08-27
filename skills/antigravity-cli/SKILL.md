@@ -52,6 +52,12 @@ Optionally pin the CLI runtime per model row (same effect as the primary switch,
 
 Removing the pin (`"agentRuntime": { "id": "auto" }` or deleting the row) makes harness selection automatic again.
 
+## Check remaining quota (chat)
+
+Use `/quota` in chat to see the agy CLI quota pool (weekly + 5-hour limits) as
+progress bars before or while routing to the CLI provider. It reads the agy
+login token read-only from the OS keyring/token file; no API key is involved.
+
 ## Preflight the CLI
 
 - Binary present: `agy --version`. The plugin also probes `agy --help` and falls back automatically when the binary is missing.
@@ -69,3 +75,4 @@ When the CLI binary is missing, not logged in, or the attempt hits quota/rate li
 ## Migration from the old Telegram hack
 
 If the workspace previously forced agy through a Telegram adapter hack (spawn + `editMessageText`), remove that hack. Native channels now receive streamed replies through the harness's assistant events, and transcripts are persisted by core automatically.
+
