@@ -1,7 +1,8 @@
 # Antigravity Claw
 
-> **不要让您Gemini Pro订阅包含的额外token付诸东流!**
-> **Stop wasting your EXTRA TOKEN from a Gemini Pro subscription you already paid!**
+> **榨干您的 Gemini Pro 订阅：别让隐藏的 Agent 算力付诸东流！**
+
+> **Stop wasting the hidden compute quotas in your Gemini Pro subscription!**
 
 **English** | [**简体中文**](README.zh-CN.md)
 
