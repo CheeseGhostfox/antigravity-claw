@@ -2,8 +2,12 @@ import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
 import { createAntigravityAgentHarness } from "./harness.js";
+import manifest from "./openclaw.plugin.json" with { type: "json" };
 import { ANTIGRAVITY_API_PROVIDER_ID, ANTIGRAVITY_CLI_PROVIDER_ID, ANTIGRAVITY_HARNESS_RUNTIME_ID, buildAntigravityApiProvider, buildAntigravityCliProvider, } from "./models.js";
-const ANTIGRAVITY_DEFAULT_API_MODEL = "gpt-5.6-sol";
+// Single source of truth for the onboarding-wizard default model: the
+// manifest's example catalog. Users pointing the provider at a custom
+// endpoint can pick any configured model as their agent default instead.
+const ANTIGRAVITY_DEFAULT_API_MODEL = manifest.modelCatalog.providers["antigravity-openai"].defaultModel ?? "gpt-5.6-sol";
 /** Builds the agy CLI provider: offline catalog only, no credentials. */
 function buildAntigravityCliProviderPlugin() {
     return {
@@ -28,17 +32,17 @@ function buildAntigravityApiProviderPlugin() {
             createProviderApiKeyAuthMethod({
                 providerId: ANTIGRAVITY_API_PROVIDER_ID,
                 methodId: "api-key",
-                label: "OpenAI API key",
-                hint: "API-key access for the antigravity-openai provider (OpenAI-compatible endpoint)",
+                label: "API key",
+                hint: "API-key access for the antigravity-openai provider (any OpenAI-compatible endpoint; OPENAI_API_KEY is the shipped example)",
                 optionKey: "openaiApiKey",
                 flagName: "--openai-api-key",
                 envVar: "OPENAI_API_KEY",
-                promptMessage: "Enter OpenAI API key",
+                promptMessage: "Enter the API key for the antigravity-openai endpoint",
                 defaultModel: `${ANTIGRAVITY_API_PROVIDER_ID}/${ANTIGRAVITY_DEFAULT_API_MODEL}`,
                 expectedProviders: [ANTIGRAVITY_API_PROVIDER_ID],
                 wizard: {
                     choiceId: "antigravity-openai-api-key",
-                    choiceLabel: "OpenAI API key",
+                    choiceLabel: "API key",
                     groupId: ANTIGRAVITY_API_PROVIDER_ID,
                     groupLabel: "Antigravity API",
                     groupHint: "Native OpenAI-compatible API-key dispatch",

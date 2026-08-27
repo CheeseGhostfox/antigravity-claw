@@ -124,7 +124,67 @@ openclaw models --set-default antigravity-openai/gpt-5.6-sol
 ```
 
 API models: `gpt-5.6-sol`, `gpt-5.6`, `gpt-5.2`, `o3`, `gpt-5-mini`.
+### Customize the API-key route (models, endpoint, thinking depth)
 
+The OpenAI entries in `openclaw.plugin.json` are the shipped **example**
+catalog only. Every request-time detail of the API-key route is configurable in
+`openclaw.json` under `models.providers["antigravity-openai"]`; OpenClaw
+merges these rows over the plugin's static catalog:
+
+- `baseUrl` — any OpenAI-compatible endpoint (provider-level, or per model).
+- `api` — `openai-responses` (default) or `openai-completions`.
+- `models[]` — add or replace models: `id`, `name`, `reasoning`, `input`,
+  `params`, `contextWindow`, `contextTokens`, `maxTokens`, `compat`.
+- `thinkingLevelMap` — map OpenClaw thinking levels (`off|low|medium|high|xhigh|max`)
+  to the endpoint's reasoning-effort strings (e.g. `none`, `minimal`, `low`).
+- `compat.supportedReasoningEfforts` — which thinking levels OpenClaw offers.
+- `compat.supportsReasoningEffort` — whether the endpoint accepts an effort.
+
+```jsonc
+{
+  "models": {
+    "providers": {
+      "antigravity-openai": {
+        "baseUrl": "https://gateway.example.com/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "my-reasoning-model",
+            "name": "My Reasoning Model",
+            "reasoning": true,
+            "input": ["text"],
+            "contextWindow": 128000,
+            "contextTokens": 32000,
+            "maxTokens": 16000,
+            "thinkingLevelMap": {
+              "off": "none",
+              "low": "minimal",
+              "medium": "low",
+              "high": "medium",
+              "xhigh": "high",
+              "max": "high"
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": ["none", "minimal", "low", "medium", "high"]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+The API key stays bound to the provider id (`OPENAI_API_KEY` or
+`openclaw auth login antigravity-openai --openai-api-key <key>`), regardless
+of which endpoint `baseUrl` points at. Point the agent at the new model:
+
+```bash
+openclaw models --set-default antigravity-openai/my-reasoning-model
+```
+
+A copyable template lives in `examples/api-key-custom-endpoint.jsonc`.
 ### Hot switch with backup takeover
 
 Keep one route as primary and the other as automatic fallback:

@@ -1,0 +1,48 @@
+// Copy the "antigravity-openai" block into your openclaw.json under "models"."providers".
+// This points the plugin's API-key route at a custom OpenAI-compatible endpoint
+// instead of the shipped OpenAI example catalog. Every field is optional except
+// the model list when you want to replace it entirely.
+//
+// Thinking levels: OpenClaw uses off|low|medium|high|xhigh|max.
+//   thinkingLevelMap  -> maps each level to your endpoint's reasoning-effort string.
+//   compat.supportedReasoningEfforts -> the levels OpenClaw offers for this model.
+//   compat.supportsReasoningEffort   -> whether the endpoint accepts an effort.
+{
+  "models": {
+    "providers": {
+      "antigravity-openai": {
+        // Any OpenAI-compatible base URL. Provider-level, or per model below.
+        "baseUrl": "https://gateway.example.com/v1",
+        // "openai-responses" (default) or "openai-completions".
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "my-reasoning-model",
+            "name": "My Reasoning Model",
+            "reasoning": true,
+            "input": ["text"],
+            "contextWindow": 128000,
+            "contextTokens": 32000,
+            "maxTokens": 16000,
+            "thinkingLevelMap": {
+              "off": "none",
+              "low": "minimal",
+              "medium": "low",
+              "high": "medium",
+              "xhigh": "high",
+              "max": "high"
+            },
+            "compat": {
+              "supportsReasoningEffort": true,
+              "supportedReasoningEfforts": ["none", "minimal", "low", "medium", "high"]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+// The API key is bound to the provider id, not the endpoint:
+//   export OPENAI_API_KEY=<key>
+//   openclaw models --set-default antigravity-openai/my-reasoning-model

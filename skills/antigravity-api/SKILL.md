@@ -6,7 +6,7 @@ user-invocable: false
 
 # Antigravity API-Key Route
 
-The `antigravity-openai` provider is the native OpenClaw API-key route of the Antigravity plugin. It uses the built-in OpenClaw agent runtime and the OpenAI-compatible transport (`api: openai-responses`, `baseUrl: https://api.openai.com/v1`) with a standard API key. No CLI binary, login session, or harness subprocess is involved.
+The `antigravity-openai` provider is the native OpenClaw API-key route of the Antigravity plugin. It uses the built-in OpenClaw agent runtime and the OpenAI-compatible transport with a standard API key. The plugin manifest ships OpenAI as the example catalog (`api: openai-responses`, `baseUrl: https://api.openai.com/v1`); the endpoint, protocol, models, and thinking-depth mapping are configurable via `models.providers["antigravity-openai"]` in `openclaw.json` (see the plugin README). No CLI binary, login session, or harness subprocess is involved.
 
 ## When to route to the API route
 
@@ -40,6 +40,10 @@ Set the agent default model to an `antigravity-openai/*` ref:
 ```
 
 Available API models: `gpt-5.6-sol`, `gpt-5.6`, `gpt-5.2`, `o3`, `gpt-5-mini`.
+## Point the route at a custom endpoint
+
+`models.providers["antigravity-openai"]` in `openclaw.json` overrides `baseUrl`, `api` (`openai-responses` / `openai-completions`), the model list, `thinkingLevelMap`, and `compat.supportedReasoningEfforts` for the API-key route. The OpenAI models in the plugin manifest are the shipped example only; the plugin README's "Customize the API-key route" section has a copyable template. The API key stays bound to provider `antigravity-openai` regardless of the endpoint.
+
 
 ## Cancel the switch
 
