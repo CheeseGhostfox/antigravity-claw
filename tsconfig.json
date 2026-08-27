@@ -19,7 +19,9 @@
     "models.ts",
     "provider-catalog.ts",
     "provider-discovery.ts",
+    "types/**/*.d.ts",
     "src/**/*.ts"
   ],
   "exclude": ["dist", "node_modules"]
 }
+

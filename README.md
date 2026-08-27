@@ -58,7 +58,7 @@ See `DESIGN.md` for the full design rationale.
 
 ## Install
 
-Requires OpenClaw `>= 2026.8.1`.
+Requires OpenClaw `>= 2026.8.1` (currently on the OpenClaw beta channel on npm: `2026.8.1-beta.x`).
 
 ```bash
 openclaw plugins install https://github.com/CheeseGhostfox/antigravity-claw
@@ -164,12 +164,13 @@ build step. To rebuild locally:
 npm install        # installs the openclaw peer (dev dependency) + toolchain
 npm run build      # tsc -p tsconfig.build.json -> dist/
 npm test           # vitest run src/agy-client.test.ts
+npm run typecheck  # tsc -p tsconfig.json
+```
 
 Loader-level contract tests (registration, harness gating, failover
 classification) live in the OpenClaw monorepo because they use the internal
-\plugin-test-runtime\ module that is not exported by the published
-\openclaw\ package; the pure-function suites in \src/\ run standalone.
-```
+`plugin-test-runtime` module that is not exported by the published `openclaw`
+package; the pure-function suites in `src/` run standalone.
 
 ### How packaging works
 
@@ -184,7 +185,7 @@ paths). This repo therefore commits `dist/` and declares it explicitly:
     "runtimeExtensions": ["./dist/index.js"]
   },
   "peerDependencies": {
-    "openclaw": ">=2026.8.1"
+    "openclaw": ">=2026.8.1-0"
   }
 }
 ```
@@ -195,6 +196,7 @@ paths). This repo therefore commits `dist/` and declares it explicitly:
   the plugin's `node_modules`, so `openclaw/plugin-sdk/*` imports resolve at
   runtime.
 - Keep `dist/` in sync whenever you change source: `npm run build`, then commit.
+- `types/openclaw-sdk-shared.d.ts` supplies local type declarations for SDK subpaths whose `.d.ts` files are not shipped in the published `openclaw` npm package; runtime resolution is unaffected.
 
 ## Troubleshooting
 
@@ -208,4 +210,8 @@ paths). This repo therefore commits `dist/` and declares it explicitly:
 
 MIT — derivative work of [OpenClaw](https://github.com/openclaw/openclaw)
 (MIT, Copyright (c) 2026 OpenClaw Foundation). See `LICENSE`.
+
+
+
+
 

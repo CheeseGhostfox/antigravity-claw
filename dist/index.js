@@ -1,6 +1,6 @@
 import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
+import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
 import { createAntigravityAgentHarness } from "./harness.js";
 import { ANTIGRAVITY_API_PROVIDER_ID, ANTIGRAVITY_CLI_PROVIDER_ID, ANTIGRAVITY_HARNESS_RUNTIME_ID, buildAntigravityApiProvider, buildAntigravityCliProvider, } from "./models.js";
 const ANTIGRAVITY_DEFAULT_API_MODEL = "gpt-5.6-sol";

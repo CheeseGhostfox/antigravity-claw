@@ -1,5 +1,5 @@
 // Antigravity plugin exposes offline catalog metadata to core discovery.
-import type { ProviderPlugin } from "openclaw/plugin-sdk/provider-model-shared";
+import type { ProviderPlugin } from "openclaw/plugin-sdk/plugin-entry";
 import { buildAntigravityProviders } from "./provider-catalog.js";
 
 const antigravityProviderDiscovery: ProviderPlugin = {
@@ -16,3 +16,4 @@ const antigravityProviderDiscovery: ProviderPlugin = {
 };
 
 export default antigravityProviderDiscovery;
+

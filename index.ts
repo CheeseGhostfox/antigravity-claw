@@ -14,8 +14,8 @@
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveLivePluginConfigObject } from "openclaw/plugin-sdk/plugin-config-runtime";
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import type { ProviderPlugin } from "openclaw/plugin-sdk/provider-model-shared";
+import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
+import type { ProviderPlugin } from "openclaw/plugin-sdk/plugin-entry";
 import { createAntigravityAgentHarness } from "./harness.js";
 import {
   ANTIGRAVITY_API_PROVIDER_ID,
@@ -103,3 +103,4 @@ export default definePluginEntry({
     api.registerProvider(buildAntigravityApiProviderPlugin());
   },
 });
+
